@@ -1,12 +1,17 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.staticfiles import StaticFiles
 
 from agents.core.events import ChatRequest
 from agents.core.personas import list_personas, load_persona
 from agents.core.runtime import handle_chat
+
+STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(title="Awesome Advanced AI Agents API", version="0.1.0")
 
@@ -17,6 +22,17 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.get("/")
+async def web_shell() -> FileResponse:
+    index = STATIC_DIR / "index.html"
+    if not index.exists():
+        raise HTTPException(status_code=404, detail="Web shell not found")
+    return FileResponse(index)
 
 
 @app.get("/health")

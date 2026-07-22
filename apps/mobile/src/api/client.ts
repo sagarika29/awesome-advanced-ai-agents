@@ -7,10 +7,34 @@ const DEFAULT_HOST =
 
 export const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? DEFAULT_HOST;
 
+async function fetchWithTimeout(
+  input: RequestInfo,
+  init: RequestInit = {},
+  timeoutMs = 12000,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } catch (error) {
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error(
+        `Request timed out talking to ${API_BASE_URL}. Is the API running on 0.0.0.0:8000?`,
+      );
+    }
+    throw new Error(
+      `Network error talking to ${API_BASE_URL}. ${error instanceof Error ? error.message : 'Unknown error'}`,
+    );
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function fetchPersonas(): Promise<PersonaOG[]> {
-  const response = await fetch(`${API_BASE_URL}/personas`);
+  const response = await fetchWithTimeout(`${API_BASE_URL}/personas`);
   if (!response.ok) {
-    throw new Error('Failed to load personas');
+    throw new Error(`Failed to load personas from ${API_BASE_URL} (${response.status})`);
   }
   return response.json();
 }
@@ -74,7 +98,7 @@ export async function streamChat({
   onSessionId,
   onEvent,
 }: ChatStreamOptions): Promise<void> {
-  const response = await fetch(`${API_BASE_URL}/chat`, {
+  const response = await fetchWithTimeout(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

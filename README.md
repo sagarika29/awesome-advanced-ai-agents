@@ -44,14 +44,23 @@ npm run start
 For Android emulator, the app defaults to `http://10.0.2.2:8000`.
 Override with `EXPO_PUBLIC_API_URL` if needed.
 
-### 3. Try Founder OG
+### 3. Try Founder OG in the browser
 
-Ask something like:
+Open [http://localhost:8000](http://localhost:8000) and ask:
 
 > Help me build an AI scheduling app for busy founders.
 
 You should see streamed status updates, compact cards, and quick actions like
 **Trim to MVP** and **Estimate effort**.
+
+### Optional: Expo mobile / web shell
+
+```powershell
+cd apps/mobile
+npm install --legacy-peer-deps
+$env:EXPO_PUBLIC_API_URL = "http://localhost:8000"
+npm run web
+```
 
 ## Repository Shape
 

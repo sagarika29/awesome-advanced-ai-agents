@@ -26,8 +26,15 @@ $env:PYTHONPATH = "."
 uvicorn services.agent_api.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+## Quick web test
+
+With the API running, open:
+
+[http://localhost:8000](http://localhost:8000)
+
 ## Endpoints
 
+- `GET /` — lightweight Founder OG web shell
 - `GET /health`
 - `GET /personas`
 - `GET /personas/founder_og`

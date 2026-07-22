@@ -14,3 +14,6 @@ web-build/
 *.log
 .env
 .env.*
+!.env.example
+api-out.log
+api-err.log

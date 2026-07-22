@@ -35,7 +35,13 @@ export function ChatScreen() {
         const founder = personas.find((item) => item.id === 'founder_og') ?? personas[0];
         setPersona(founder ?? null);
       })
-      .catch(() => setError('Could not load Founder OG. Is the API running?'));
+      .catch((err) =>
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Could not load Founder OG. Is the API running?',
+        ),
+      );
   }, []);
 
   const latestAssistant = useMemo(

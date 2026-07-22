@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-advanced-ai-agents.dev/contracts/persona.schema.json",
+  "title": "PersonaOG",
+  "type": "object",
+  "required": ["id", "name", "tagline", "description", "default_workflow"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "tagline": { "type": "string" },
+    "description": { "type": "string" },
+    "tone": { "type": "string" },
+    "default_workflow": { "type": "string" },
+    "enabled_workflows": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "card_preferences": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

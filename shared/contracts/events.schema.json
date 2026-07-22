@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://awesome-advanced-ai-agents.dev/contracts/events.schema.json",
+  "title": "ShellEvent",
+  "type": "object",
+  "required": ["type", "session_id", "persona_id", "payload"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "status",
+        "message_delta",
+        "card",
+        "actions",
+        "tool_activity",
+        "citation",
+        "error",
+        "done"
+      ]
+    },
+    "session_id": { "type": "string" },
+    "persona_id": { "type": "string" },
+    "payload": { "type": "object" }
+  },
+  "additionalProperties": false
+}

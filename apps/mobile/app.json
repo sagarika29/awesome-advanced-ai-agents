@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "OGs of Tech",
+    "slug": "ogs-of-tech",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#0b1020"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0b1020"
+      }
+    }
+  }
+}

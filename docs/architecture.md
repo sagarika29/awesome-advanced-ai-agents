@@ -4,6 +4,7 @@
 >
 > - `docs/architecture-hld.md` — high-level architecture and technology choices
 > - `docs/architecture-lld.md` — low-level modules, APIs, sequences, and contracts
+> - `docs/diagrams/ogs-of-tech-architecture.png` — architecture diagram (current + scale path)
 
 ## Overview
 
